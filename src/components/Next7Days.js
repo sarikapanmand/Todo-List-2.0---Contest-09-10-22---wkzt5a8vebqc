@@ -2,19 +2,18 @@ import React from "react";
 import ListRender from "./ListRender";
 
 const Next7Days = (props) => {
-  const date = new Date("10/4/2022");
-  console.log(date)
-  const nseven=props.list.filter((itm)=>{
-    const d=new Date(itm.date);
-    console.log(d,"ddddd");
-    return(
-        d<=date
-    )
-  })
-  console.log(nseven)
+  const today = new Date();
+  const next7days = props.list.filter((task) => {
+    const taskDate = new Date(task.dueDate);
+    const timeDiff = taskDate.getTime() - today.getTime();
+    const daysDiff = timeDiff / (1000 * 3600 * 24);
+    return daysDiff >= 0 && daysDiff <= 7;
+  });
+
   return (
     <div id="next-list">
-      <ListRender list={nseven}/>
+      <h2>Next 7 Days</h2>
+      <ListRender list={next7days} />
     </div>
   );
 };
