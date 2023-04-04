@@ -2,12 +2,19 @@ import React from "react";
 import ListRender from "./ListRender";
 
 const Today = (props) => {
-  const date = new Date("9/27/2022");
-  
-  const today=props.list.filter((itm)=>{return (itm.date===date.toLocaleDateString("en-US"))});
-  
+  const today = props.list.filter((task) => {
+    const taskDate = new Date(task.dueDate);
+    const todayDate = new Date();
+    return (
+      taskDate.getDate() === todayDate.getDate() &&
+      taskDate.getMonth() === todayDate.getMonth() &&
+      taskDate.getFullYear() === todayDate.getFullYear()
+    );
+  });
+
   return (
     <div id="today-list">
+      <h2>Today</h2>
       <ListRender list={today} />
     </div>
   );
